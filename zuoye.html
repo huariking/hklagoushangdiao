@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作业</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        ul,li {
+            list-style: none;
+        }
+        h1,h2,h3,h4,h5,h6 {
+            font-size: 16px;
+            font-weight: normal;
+        }
+        b{
+            font-weight: normal;
+        }
+        #app{
+            width:100%;
+            height:100%;
+            
+        }
+        header{
+            height: 3rem;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 .24rem 0 .29rem;
+            background: #00b38a;
+        }
+        p{
+            display: flex;
+            justify-content: space-between;
+            padding-left: 9rem ;
+            color: #fff;
+            font-size: 1.2rem;
+        }
+        main{
+            width: 100%;
+            height: 100%;
+            padding: 3rem 0 1rem;
+        }
+        footer{
+            height: 3rem;
+            width: 100%;
+            background: #f6f6f6;
+            position: fixed;
+            bottom: 0;
+            border-top: .01rem solid  #e9e9e9;
+       }
+        ul{
+            display: flex;
+            justify-content: space-between;
+            padding: .5rem 3rem 0;
+        }
+        li{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #c2cfcc;
+        }
+        .search{
+    width: 5.6rem;
+    height: 0.56rem;
+    background: #f2f2f2;
+    border-radius: 5px;
+    display: flex;
+   align-items: center;
+    
+}
+select{
+    float: left;
+    height: 49px;
+    line-height: 45px;
+    font-size: 1.5rem;
+    text-align: center;
+    width: 88px;
+    border-right: 1px solid #e8e8e8;
+}
+input{
+    display: block;
+    padding: 10px 0;
+    height: 25px;
+    line-height: 25px;
+    color: #333333;
+    width: 70%;
+    margin: 0 0 0 5%;
+    font-size: 1.5rem;
+}
+h2{
+    font-size: 1.4rem;
+    color: #fff;
+    display: block;
+    width: 35%;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #1fc8a1;
+    position: relative;
+    top: 33px;
+    margin-bottom: 100px;
+}
+b{
+    width: 45%;
+    height: 86px;
+    line-height: 86px;
+    background-color: #1fc8a1;
+    text-align: center;
+    color: #fff;
+    font-size: 1.6rem; 
+    position: relative;
+    float: left;
+    margin: 7px;
+}
+h3{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: pink;
+    font-size: 1.6rem; 
+    position: relative;
+    float: left;
+    
+}
+  
+    </style>
+</head>
+<body>    
+    <div id="app">
+        
+        <header>
+            <p>拉勾网</p>
+          
+        </header>
+        <main>  
+            
+
+            <component :is="getTab"></component>
+            
+        </main>
+      
+        <footer>
+            <ul>
+            <li v-for='item in list' @click=' handleClick(item)'>
+                {{item.text}}
+            </li>
+        </ul>
+        </footer>
+
+    </div>
+    <script>
+        Vue.component('custom-position',{
+           template:`
+          
+            <div>                
+                <h3>WallTech---<span>Java开发师</span> </h3>          
+                <h3>博依特 ---<span>前端开发师</span>  </h3>   
+                <h3>小灶能力派--- <span>企业投放员</span> </h3>
+                   
+            </div>`
+        })
+        Vue.component('custom-search',{
+            template:`
+            
+            <div>
+                <select>
+                <option>全国</option>
+                <option>北京</option>
+                <option>上海</option>
+                <option>天津</option>
+                <option>重庆</option>
+                </select>
+                <input type="text" placeholder="搜索职位或公司">
+            </div>`
+        })
+        Vue.component('custom-my',{
+            template:`
+            <div>
+                <h2>登录/注册</h2>
+                <b>投递</b>
+                <b>面试</b>
+                <b>邀约</b>
+                <b>收藏</b>
+            </div>`
+        })
+
+        let vm = new Vue({            
+            data:{
+                currentTab:'position',
+                list:[
+                    {id:'position',text:'职位'},
+                    {id:'search',text:'搜索'},
+                    {id:'my',text:'我的'}
+                ]
+            },
+            computed :{
+                getTab(){
+                    return 'custom-' + this.currentTab
+
+                }
+            },
+            methods:{
+                handleClick(item){
+                    this.currentTab = item.id
+                }
+            }
+
+        }).$mount('#app')
+    </script>
+</body>
+</html>
